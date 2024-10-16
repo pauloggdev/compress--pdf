@@ -1,0 +1,24 @@
+{
+  "name": "compress-pdf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "copy-files": "copyfiles -u 1 src/**/*.{html,css} dist",
+    "start": "npx tsc  && npm run copy-files && node ./dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "compress-pdf": "file:",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "copyfiles": "^2.4.1",
+    "typescript": "^5.6.3"
+  }
+}
