@@ -19,7 +19,6 @@ app.get('/', function (req: any, res: any) {
 })
 
 app.post('/compressPDF', function (req: any, res: any) {
-    console.log(req);return;
     const inputPDF = path.resolve(__dirname, '../src/CV.pdf');
     const outputPDF = path.join(__dirname, `../src/${GenerateUniqueName.exec()}.pdf`);
     const compressor = new PDFCompressor(inputPDF, outputPDF, 'screen');
