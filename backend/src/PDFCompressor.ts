@@ -1,3 +1,4 @@
+import { response } from "express";
 import GhostscriptError from "./GhostscriptError";
 import PurchasingFileError from "./PurchasingFileError";
 
@@ -18,13 +19,11 @@ export default class PDFCompressor {
         try {
             // Usando exec com promessas para esperar a execução sem bloquear
             const { stdout, stderr } = await execPromise(gsCommand, { timeout: 600000 });
-            
             if (stderr) {
                 throw new GhostscriptError(stderr); // Corrigindo para usar stderr
             }
-
-            console.log('PDF comprimido com sucesso!', stdout);
-            return stdout;
+            return response.json({statusCode: 200, message:'PDF comprimido com sucesso!'})
+            //return stdout;
         } catch (error) {
             throw new PurchasingFileError(error); // Se houver um erro, lança um erro personalizado
         }
