@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <input type="file" />
+    <input type="file" @change="onFileChange" />
     <span v-if="errors.file" style="color:red">{{ errors.file }}</span>
     <br><br>
     <button @click.prevent="compressPdf" :disabled="isLoading">
@@ -43,6 +43,9 @@ export default {
                 this.isLoading = false;
 
             }
+        },
+        onFileChange() {
+            this.file = event.target.files[0]; // Armazena o arquivo selecionado
         }
     }
 

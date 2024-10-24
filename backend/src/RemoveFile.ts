@@ -1,11 +1,10 @@
-import { response } from "express";
-
+import { Request, Response } from "express";
 const fs = require('fs');
-export function removeFile(filePath: string) {
+
+export function removeFile(filePath: string):void {
     fs.unlink(filePath, (err: any) => {
         if (err) {
-            throw new Error(`Erro ao remover o arquivo: ${err.message}`);
+            throw new Error(`Erro ao remover o arquivo: ${err.message}` )
         }
-        return response.json({ statusCode: 200, message: `Arquivo ${filePath} removido com sucesso` })
     });
 }

@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
-        cb(null, dir);    },
+        cb(null, dir);
+    },
     filename: (req, file, cb) => {
         cb(null, file.originalname); // Mantém o nome original do arquivo
     }
@@ -39,7 +40,7 @@ app.get('/', function (req: any, res: any) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.post('/compressPDF', upload.single('file'), function (req: any, res: any) {
+app.post('/compressPDF', upload.single('file'), async function (req: any, res: any) {
     if (!req.file) {
         return res.status(400).send('Nenhum arquivo foi enviado.');
     }
@@ -47,11 +48,13 @@ app.post('/compressPDF', upload.single('file'), function (req: any, res: any) {
     //const inputPDF = path.resolve(__dirname, '../src/CV.pdf');
     const outputPDF = path.join(__dirname, `public/uploads/${GenerateUniqueName.exec()}.pdf`);
     const compressor = new PDFCompressor(inputPDF, outputPDF, 'screen');
-    compressor.compress();
-   // if(response.statusCode === 200) {
-        removeFile(inputPDF)
+    await compressor.compress();
+    removeFile(inputPDF);
+
+    // if(response.statusCode === 200) {
+    // removeFile(inputPDF)
     //}
-    res.send('Hello World')
+    // res.send('Hello World')
 })
 app.listen(3000, () => {
     console.log('listening on port 3000')

@@ -23,7 +23,6 @@ export default class PDFCompressor {
                 throw new GhostscriptError(stderr); // Corrigindo para usar stderr
             }
             return response.json({statusCode: 200, message:'PDF comprimido com sucesso!'})
-            //return stdout;
         } catch (error) {
             throw new PurchasingFileError(error); // Se houver um erro, lança um erro personalizado
         }
